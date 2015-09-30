@@ -2,6 +2,12 @@ ReturnValue = require 'nanocyte-component-return-value'
 
 class Collect extends ReturnValue
   onEnvelope: (envelope) =>
-    return envelope.message
+    {config,data} = envelope
+    {value} = config
+
+    data ?= []
+    data.push value
+
+    return data
 
 module.exports = Collect
