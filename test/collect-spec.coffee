@@ -53,3 +53,27 @@ describe 'Collect', ->
           data: {}
 
         expect(@sut.onEnvelope envelope).to.deep.equal [3]
+
+    describe 'when called a message that has clearKey to foo and foo is true', ->
+      it 'should clear the message', ->
+        envelope =
+          message:
+            foo: true
+          config:
+            value: 3
+            clearKey: 'foo'
+          data: [1]
+
+        expect(@sut.onEnvelope envelope).to.deep.equal []
+
+    describe 'when called a message that has clearKey to foo and foo is not true', ->
+      it 'should not clear the message', ->
+        envelope =
+          message:
+            foo: 'thruethy'
+          config:
+            value: 3
+            clearKey: 'foo'
+          data: [1]
+
+        expect(@sut.onEnvelope envelope).to.deep.equal [1,3]

@@ -3,9 +3,10 @@ _ = require 'lodash'
 
 class Collect extends ReturnValue
   onEnvelope: (envelope) =>
-    {config,data} = envelope
+    {config,data,message} = envelope
     {value} = config
 
+    return [] if message?[config.clearKey] == true
     data = [] unless _.isArray data
     data.push value
 
