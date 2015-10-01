@@ -44,3 +44,12 @@ describe 'Collect', ->
           data: [1]
 
         expect(@sut.onEnvelope envelope).to.deep.equal [1,3]
+
+    describe 'when called with an envelope that already contains data as an object', ->
+      it 'should convert the object to an array', ->
+        envelope =
+          config:
+            value: 3
+          data: {}
+
+        expect(@sut.onEnvelope envelope).to.deep.equal [3]
